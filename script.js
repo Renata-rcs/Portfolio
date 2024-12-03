@@ -40,19 +40,39 @@ document.addEventListener('DOMContentLoaded', function() {
 })
 
 
+// Remove a classe 'active' de todos os projetos ao carregar a página
+document.addEventListener("DOMContentLoaded", () => {
+    const projetos = document.querySelectorAll(".projeto-display");
+    const projetosAddon = document.querySelectorAll(".projeto-display-addon");
 
-let removedorDeProjetosInicial = document.getElementById('abas').querySelectorAll('.projeto-display')
-for(i = 0; i < removedorDeProjetosInicial.length; i++) {
-    let removedorDeProjetosInicialAddon = removedorDeProjetosInicial[i].querySelector('p')
-    console.log(removedorDeProjetosInicialAddon)
-    removedorDeProjetosInicial[i].classList.remove('active')
-    removedorDeProjetosInicialAddon.classList.remove('active')
-}
+    // Inicializa os projetos: apenas o primeiro ficará ativo
+    projetos.forEach((projeto, index) => {
+        if (index === 0) {
+            projeto.classList.add("active");
+            projetosAddon[index].classList.add("active");
+        } else {
+            projeto.classList.remove("active");
+            projetosAddon[index].classList.remove("active");
+        }
+    });
+});
 
-
+// Função para ativar/desativar projetos ao clicar
 function ativaProjeto(projeto) {
-    const projetoChild = projeto.querySelector('.projeto-display-addon')  
-    projeto.classList.toggle("active")
-    console.log(projetoChild)
-    projetoChild.classList.toggle("active")
+    // Seleciona todos os projetos e desativa-os
+    const projetos = document.querySelectorAll(".projeto-display");
+    const projetosAddon = document.querySelectorAll(".projeto-display-addon");
+
+    projetos.forEach((p, index) => {
+        if (p === projeto) {
+            // Ativa apenas o projeto clicado
+            p.classList.toggle("active");
+            projetosAddon[index].classList.toggle("active");
+        } else {
+            // Desativa todos os outros
+            p.classList.remove("active");
+            projetosAddon[index].classList.remove("active");
+        }
+    });
 }
+
